@@ -74,12 +74,12 @@ class CertStreamHandler:
         CN = message['data']['leaf_cert']['subject']['CN']
         domains = message['data']['leaf_cert']['all_domains']
         for domain in domains:
-            print(domain)
             for regex in self.regex_patterns:
                 if regex.search(domain):
+                    print(f"GOT DOMAIN {domain}")
                     with Session() as session:
                         httpx_output = run_httpx_command(domain)
-                        if httpx_output['status_code'] == "[200]":
+                        if httpx_output is not False:
                             insert_live(session, httpx_output['url'], CN)
                             run_nuclei_command(httpx_output['url'])
                         else:

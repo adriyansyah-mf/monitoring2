@@ -1,7 +1,7 @@
 import subprocess
 
 def run_nuclei_command(domain):
-    command = ["nuclei", "-u", domain, "-t", 'nuclei_templates.yaml']
+    command = ["nuclei", "-u", domain, "-es",'INFO', '-v']
     try:
         print(f"Execute nuclei {domain}")
         result = subprocess.run(command, capture_output=True, text=True, check=True)

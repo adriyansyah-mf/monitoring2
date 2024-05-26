@@ -19,6 +19,8 @@ def run_httpx_command(domain):
         }
     except subprocess.CalledProcessError as e:
         print("Command failed with error:", e)
+    except IndexError:
+        return False
 
 def main():
     session = Session()
